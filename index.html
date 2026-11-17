@@ -132,6 +132,8 @@ async function approve(packed) {
         challenge: digest,
         rpId: location.hostname,
         userVerification: "required",
+        allowCredentials: (req.credentials || []).map(
+          id => ({type: "public-key", id: unb64url(id)})),
       }});
       const r = cred.response;
       await post(req.reply, {
